@@ -35,7 +35,7 @@ pathRegex = (path) ->
     m = paramRE.exec path
 
     j = if m then m.index else path.length
-    parts.push path.slice i, j if i < j
+    parts.push sanitize(path.slice i, j) if i < j
 
     break unless m
     i = j + m[0].length
@@ -45,3 +45,6 @@ pathRegex = (path) ->
   regex = globRegex parts.join ''
   regex.params = params
   regex
+
+sanitize = (part) ->
+  part.replace /\./g, '\\.'
