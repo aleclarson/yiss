@@ -1,4 +1,4 @@
-# yiss v0.0.0
+# yiss v0.0.1
 
 Aww yiss. HTTP routing with finesse.
 
