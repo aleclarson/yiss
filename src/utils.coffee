@@ -6,8 +6,8 @@ exports.createMatcher = (path) ->
     then pathRegex path
     else path
 
-  unless /^\\\//.test regex.source
-    throw Error '`path` must begin with /'
+  unless /^\^\\\//.test regex.source
+    throw Error '`path` must begin with ^/'
 
   return (req, path) ->
     if m = regex.exec path
