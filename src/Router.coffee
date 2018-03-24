@@ -158,14 +158,15 @@ class Router
       then val = await route req, res
       else val = await route._exec req, res
 
-      break if val is BREAK
+      if val is BREAK
+        return
 
-    res.val = val
-    if @_afterAll
-      await execAll @_afterAll, req, res
-
-    req.next = next
-    return val
+      if val
+        res.val = val
+        if @_afterAll
+          await execAll @_afterAll, req, res
+        req.next = next
+        return val
 
 module.exports = Router
 
