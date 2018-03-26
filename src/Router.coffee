@@ -27,17 +27,17 @@ class Router
       @prefix = '/'
       @_prefixRE = matchAll
 
-    @_match = noop.true
     @_routes = []
+    @_matcher = noop.true
     @_blacklist = noop.false
     @
 
   match: (path) ->
 
-    if @_match isnt noop.true
-      throw Error 'Cannot call `match` more than once per context'
+    if @_matcher isnt noop.true
+      throw Error 'The matcher is already set'
 
-    @_match =
+    @_matcher =
       if typeof path is 'function' then path
       else PathMatcher.create path
 
@@ -46,7 +46,7 @@ class Router
   blacklist: (fn) ->
 
     if @_blacklist isnt noop.false
-      throw Error 'Cannot call `blacklist` more than once per context'
+      throw Error 'The blacklist is already set'
 
     assertValid fn, 'function'
     @_blacklist = fn
@@ -122,7 +122,7 @@ class Router
 
   _match: (req, path) ->
     if @_prefixRE.test path
-      return @_match req, path
+      return @_matcher req, path
 
   _exec: (req, res) ->
 
