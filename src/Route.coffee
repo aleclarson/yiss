@@ -6,7 +6,7 @@ valido = require 'valido'
 noop = require 'noop'
 
 RouteConfig = valido
-  verb: Pattern
+  verb: 'string|regexp'
 
 class Route
   constructor: (config) ->
