@@ -1,5 +1,6 @@
 
-exports.createMatcher = (path) ->
+exports.create = (path) ->
+
   regex =
     if typeof path is 'string'
     then pathRegex path

@@ -1,10 +1,9 @@
+PathMatcher = require './PathMatcher'
 assertValid = require 'assertValid'
 sliceArray = require 'sliceArray'
 isValid = require 'isValid'
 valido = require 'valido'
 noop = require 'noop'
-
-utils = require './utils'
 
 Pattern = valido.get 'string|regexp'
 Responder = valido.get 'function?'
@@ -69,7 +68,7 @@ class Route
       then path
       else path.source
 
-    @_matcher = utils.createMatcher path
+    @_matcher = PathMatcher.create path
     @listen responder if responder
     return this
 

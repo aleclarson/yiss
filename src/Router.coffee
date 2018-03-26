@@ -1,14 +1,12 @@
+PathMatcher = require './PathMatcher'
 assertValid = require 'assertValid'
 valido = require 'valido'
-noop = require 'noop'
-
 Route = require './Route'
-utils = require './utils'
+noop = require 'noop'
 
 matchAll = /./
 BREAK = Symbol()
 
-Matcher = valido.get 'function|string|regexp'
 Pattern = valido.get 'string|regexp?'
 
 configTypes = valido
@@ -34,13 +32,15 @@ class Router
     @_blacklist = noop.false
     @
 
-  match: (value) ->
+  match: (path) ->
 
     if @_match isnt noop.true
       throw Error 'Cannot call `match` more than once per context'
 
-    assertValid value, Matcher
-    @_match = utils.createMatcher value
+    @_match =
+      if typeof path is 'function' then path
+      else PathMatcher.create path
+
     return this
 
   blacklist: (fn) ->
