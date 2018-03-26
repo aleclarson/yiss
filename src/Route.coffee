@@ -16,7 +16,7 @@ class Route
   constructor: (config) ->
     assertValid config, RouteConfig
     @_verb = new RegExp '^(' + config.verb + ')$'
-    @_match = noop.true
+    @_matcher = noop.true
     @_responder = null
     @
 
@@ -69,13 +69,13 @@ class Route
       then path
       else path.source
 
-    @_match = utils.createMatcher path
+    @_matcher = utils.createMatcher path
     @listen responder if responder
     return this
 
   _match: (req, path) ->
     if @_verb.test req.method
-      return @_match req, path
+      return @_matcher req, path
 
   _exec: (req, res) ->
 
