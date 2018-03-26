@@ -25,7 +25,7 @@ buildParams = (values, names) ->
     params[names[i - 1] or i - 1] = values[i]
   params
 
-paramRE = /:([^./-]+)(\([^\)]+\))?/g
+paramRE = /:([^./\(-]+)(\([^\)]+\))?/g
 pathRegex = (path) ->
   parts = []
   params = []
