@@ -1,4 +1,3 @@
-globRegex = require 'glob-regex'
 
 exports.createMatcher = (path) ->
   regex =
@@ -27,7 +26,7 @@ buildParams = (values, names) ->
 
 paramRE = /:([^./\(-]+)(\([^\)]+\))?/g
 pathRegex = (path) ->
-  parts = []
+  parts = ['^']
   params = []
 
   i = 0
@@ -42,7 +41,8 @@ pathRegex = (path) ->
     parts.push m[2] or '([^./-]+)'
     params.push m[1]
 
-  regex = globRegex parts.join ''
+  parts.push '$'
+  regex = new RegExp parts.join ''
   regex.params = params
   regex
 
