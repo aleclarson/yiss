@@ -5,9 +5,6 @@ isValid = require 'isValid'
 valido = require 'valido'
 noop = require 'noop'
 
-Pattern = valido.get 'string|regexp'
-Responder = valido.get 'function?'
-
 RouteConfig = valido
   verb: Pattern
 
@@ -57,18 +54,19 @@ class Route
     return this
 
   match: (path, responder) ->
-    assertValid path, Pattern
-    assertValid responder, Responder
 
-    if @_responder
-      throw Error 'Cannot call `match` more than once per route'
+    if @_matcher isnt noop.true
+      throw Error 'The matcher is already set'
 
-    @_path =
-      if typeof path is 'string'
-      then path
-      else path.source
+    if typeof path is 'function'
+      @_matcher = path
+    else
+      @_matcher = PathMatcher.create path
+      @_path =
+        if typeof path is 'string'
+        then path
+        else path.source
 
-    @_matcher = PathMatcher.create path
     @listen responder if responder
     return this
 
