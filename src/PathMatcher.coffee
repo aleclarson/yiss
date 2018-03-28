@@ -49,3 +49,6 @@ pathRegex = (path) ->
 
 sanitize = (part) ->
   part.replace /\./g, '\\.'
+    .replace /\*\*\/\*/g, '.+'
+    .replace /\*\*\//g, '.+\/'
+    .replace /\*/g, '[^\/]+'
