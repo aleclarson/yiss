@@ -89,18 +89,6 @@ class Router
     @_routes.push route
     return route
 
-  beforeAll: (fn) ->
-    assertValid fn, 'function'
-    @_beforeAll ?= []
-    @_beforeAll.push fn
-    return this
-
-  afterAll: (fn) ->
-    assertValid fn, 'function'
-    @_afterAll ?= []
-    @_afterAll.push fn
-    return this
-
   extend: (prefix, plugins) ->
 
     if arguments.length is 1
@@ -143,16 +131,10 @@ class Router
     req.next = noop
     req.BREAK = BREAK
 
-    beforeAll = @_beforeAll
-
     for route in @_routes
 
       unless isFunction = typeof route is 'function'
         continue unless route._match req, path
-
-      if beforeAll
-        await execAll beforeAll, req, res
-        beforeAll = null
 
       if isFunction
       then val = await route req, res
@@ -162,9 +144,6 @@ class Router
         return
 
       if val
-        res.val = val
-        if @_afterAll
-          await execAll @_afterAll, req, res
         req.next = next
         return val
 
@@ -176,12 +155,3 @@ module.exports = Router
     Router::[verb] = ->
       @listen verb, ...arguments
     return
-
-#
-# Helpers
-#
-
-execAll = (fns, req, res) ->
-  for fn in fns
-    if val = await fn req, res
-      break if val is BREAK
