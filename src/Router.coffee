@@ -139,13 +139,11 @@ class Router
       if isFunction
       then val = await route req, res
       else val = await route._exec req, res
+      break if val
 
-      if val is BREAK
-        return
-
-      if val
-        req.next = next
-        return val
+    req.next = next
+    if val isnt BREAK
+      return val
 
 module.exports = Router
 
