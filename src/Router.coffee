@@ -139,7 +139,7 @@ class Router
       if isFunction
       then val = await route req, res
       else val = await route._exec req, res
-      break if val
+      break if val or res.headersSent
 
     req.next = next
     if val isnt BREAK
