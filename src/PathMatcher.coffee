@@ -21,7 +21,7 @@ exports.create = (path) ->
 
 buildParams = (values, names) ->
   params = Object.create null
-  for i in [1 .. values.length]
+  for i in [1 ... values.length]
     params[names[i - 1] or i - 1] = values[i]
   params
 
