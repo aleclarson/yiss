@@ -19,6 +19,6 @@
     "url": "https://github.com/aleclarson/yiss.git"
   },
   "scripts": {
-    "prepublishOnly": "coffee-build src -o js -m"
+    "prepublishOnly": "coffee-build src -o js -m && prepv -i"
   }
 }
