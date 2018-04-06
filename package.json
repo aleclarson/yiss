@@ -2,12 +2,6 @@
   "name": "yiss",
   "version": "0.0.4",
   "main": "js/Router",
-  "devDependencies": {
-    "coffeescript": "^2.2.3"
-  },
-  "plugins": [
-    "lotus-coffee"
-  ],
   "dependencies": {
     "assertValid": "aleclarson/assertValid#1.0.1",
     "glob-regex": "^0.2.2",
@@ -16,8 +10,15 @@
     "sliceArray": "aleclarson/sliceArray#1.0.0",
     "valido": "aleclarson/valido#1.1.4"
   },
+  "devDependencies": {
+    "coffeescript": "^2.2.3",
+    "wch-coffee": "^0.0.1"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/aleclarson/yiss.git"
+  },
+  "scripts": {
+    "prepublishOnly": "coffee-build src -o js -m"
   }
 }
