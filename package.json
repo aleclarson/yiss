@@ -1,6 +1,6 @@
 {
   "name": "yiss",
-  "version": "0.0.4",
+  "version": "0.1.0",
   "main": "js/Router",
   "dependencies": {
     "assertValid": "aleclarson/assertValid#1.0.1",
