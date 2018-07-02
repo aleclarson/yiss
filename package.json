@@ -1,7 +1,14 @@
 {
   "name": "yiss",
   "version": "0.1.0",
-  "main": "js/Router",
+  "main": "lib/Router",
+  "license": "MIT",
+  "repository": "https://github.com/aleclarson/yiss.git",
+  "description": "HTTP routing with finesse",
+  "scripts": {
+    "build": "coffee-build src -o lib -m",
+    "prepublishOnly": "prepv -i || true"
+  },
   "dependencies": {
     "assertValid": "aleclarson/assertValid#1.0.1",
     "glob-regex": "^0.2.2",
@@ -12,14 +19,6 @@
   },
   "devDependencies": {
     "coffeescript": "^2.2.3",
-    "wch-coffee": "^0.0.1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/aleclarson/yiss.git"
-  },
-  "scripts": {
-    "build": "coffee-build src -o js -m",
-    "prepublishOnly": "prepv -i || true"
+    "wch-coffee": "*"
   }
 }
